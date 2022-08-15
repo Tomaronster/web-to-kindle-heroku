@@ -12,13 +12,13 @@ express()
   .set('view engine', 'ejs')
   .get('/', async (req, res) => {
     const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-	await page.waitForNavigation(networkidle0);
+	const page = page.waitForNavigation(networkidle0);
     await page.setViewport({ width: 600, height: 800 });
     await page.goto(
-	process.env.SCREENSHOT_URL || 'https://darksky.net/details/40.7127,-74.0059/2021-1-6/us12/en');
-	{waitUntil: "networkidle0", timeout: 20000 }
+		process.env.SCREENSHOT_URL || "https://darksky.net/details/40.7127,-74.0059/2021-1-6/us12/en");
+		{ waitUntil: "networkidle0", timeout: 15000 }
 	);
-	await page.waitForNavigation;
+	await page.waitForTimeout(1000);
     await page.screenshot({
       path: '/tmp/screenshot.png',
     });
